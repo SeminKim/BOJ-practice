@@ -2,7 +2,6 @@
 # Kruskal, but nearest node is easily obtained by sort.
 
 from sys import stdin
-import heapq
 
 n = int(stdin.readline().strip())
 x = []
@@ -21,13 +20,13 @@ x.sort()
 y.sort()
 z.sort()
 
-pq = []
+q = []
 
 for axis in [x, y, z]:
     for first in range(n - 1):
         pos1, idx1 = axis[first]
         pos2, idx2 = axis[first + 1]
-        heapq.heappush(pq, (abs(pos1 - pos2), [idx1, idx2]))
+        q.append((abs(pos1 - pos2), idx1, idx2))
 
 head = [i for i in range(n)]
 
@@ -39,9 +38,9 @@ def get_head(num):
     return head[num]
 
 
+q.sort()
 ans = 0
-while pq:
-    dist, [idx1, idx2] = heapq.heappop(pq)
+for dist, idx1, idx2 in q:
     idx1 = get_head(idx1)
     idx2 = get_head(idx2)
 
