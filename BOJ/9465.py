@@ -9,9 +9,12 @@ for _ in range(t):
     table = [[], []]
     table[0] = list(map(int, stdin.readline().split()))
     table[1] = list(map(int, stdin.readline().split()))
-    table[0][1] += table[1][0]
-    table[1][1] += table[0][0]
-    for col in range(2, n):
-        for row in range(2):
-            table[row][col] += max(table[1 - row][col - 1], table[1 - row][col - 2])
-    print(max(table[0][n - 1], table[0][n - 2], table[1][n - 1], table[1][n - 2]))
+    if n == 1:
+        print(max(table[0][0], table[1][0]))
+    else:
+        table[0][1] += table[1][0]
+        table[1][1] += table[0][0]
+        for col in range(2, n):
+            for row in range(2):
+                table[row][col] += max(table[1 - row][col - 1], table[1 - row][col - 2])
+        print(max(table[0][n - 1], table[0][n - 2], table[1][n - 1], table[1][n - 2]))
