@@ -4,9 +4,17 @@
 from sys import stdin
 from bisect import bisect_left
 
-_, _, k = map(int, stdin.readline().split())
+n, _, k = map(int, stdin.readline().split())
 available = list(map(int, stdin.readline().split()))
-available.sort()
+count = [0 for _ in range(n + 1)]
+for i in available:
+    count[i] += 1
+
+available = []
+for i in range(n):
+    for j in range(count[i]):
+        available.append(i)
+
 seq = list(map(int, stdin.readline().split()))
 used = set()
 
