@@ -8,12 +8,12 @@ from sys import stdin, setrecursionlimit
 
 setrecursionlimit(10 ** 8)
 n = int(stdin.readline().strip())
-tree = [set() for _ in range(n + 1)]
+tree = [[] for _ in range(n + 1)]
 
 for _ in range(n - 1):
     a, b = map(int, stdin.readline().split())
-    tree[a].add(b)
-    tree[b].add(a)
+    tree[a].append(b)
+    tree[b].append(a)
 
 dp1 = [-1 for _ in range(n + 1)]
 dp2 = [-1 for _ in range(n + 1)]
