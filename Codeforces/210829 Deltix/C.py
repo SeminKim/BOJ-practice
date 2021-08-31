@@ -1,56 +1,31 @@
 from sys import stdin
 
-### Not Solved Yet ###
 
 def solve():
     n = int(stdin.readline().strip())
     seq = list(map(int, stdin.readline().split()))
-
     ans = 0
-    group = 0
-    counter = 0
-    for i in range(n // 2):
-        open = seq[2 * i]
-        close = seq[2 * i + 1]
-        if open == close:
-            group += 1
-            ans += open
+    for i in range(0, n, 2):
+        curr = seq[i]
+        inter_sum = 0  # intermediate sum
+        for j in range(i + 1, n):
+            if j % 2 == 0:
+                inter_sum += seq[j]
+            else:
+                inter_sum -= seq[j]
 
-        elif open > close:
-            ans += group * (group - 1) // 2
-            group = 1
+                if inter_sum <= 0 and j > i + 1:
+                    ans += 1
+                if inter_sum < 0:  # bracket closed more, thus some of seq[i] will used
+                    if curr + inter_sum >= 0:
+                        ans += -inter_sum
+                        curr += inter_sum
+                        inter_sum = 0
+                    else:  # too much closed, terminate
+                        ans += curr
+                        break
 
-    # for i in range(n):
-    #     if i % 2 == 0:
-    #         counter += seq[i]
-    #
-    #     else:
-    #         if counter - seq[i] == 0:
-    #             group += 1
-    #             counter -= seq[i]
-    #             ans += seq[i]
-    #
-    #         elif counter - seq[i] > 0:
-    #             ans += group * (group - 1) // 2
-    #             group = 1
-    #             counter -= seq[i]
-    #             ans += seq[i]
-    #
-    #         else:
-    #             group += 1
-    #             ans += group * (group - 1) // 2
-    #             group = 0
-    #             ans += counter
-    #             counter = 0
-    #
-    #
-    #
-    # ans += group * (group - 1) // 2
-    #
-    # print(ans)
+    print(ans)
 
 
 solve()
-
-# 6
-# 3 2 3 2 3 2
