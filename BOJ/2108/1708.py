@@ -17,6 +17,7 @@ INF = 200000
 n = int(stdin.readline().strip())
 points = [list(map(int, stdin.readline().split())) for _ in range(n)]
 base = min(points)
+points.sort()
 points.sort(key=lambda p: INF - p[1] if p[0] == base[0] else (p[1] - base[1]) / (p[0] - base[0]))
 
 stack = deque([base, points[0]])
