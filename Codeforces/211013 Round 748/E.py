@@ -1,47 +1,46 @@
 from collections import deque
 from sys import stdin
 
-MAX_INT = 10 ** 6
+MAX_INT = 10 ** 8
 
-
-### NOT SOVLED YET: Will upsolve later ###
 
 def solve():
     n, k = map(int, stdin.readline().split())
     if n == 1:
-        print(0)
-        return
-
-    if n == 2:
-        input()
-        print(0)
+        if k == 0:
+            print(1)
+        else:
+            print(0)
         return
 
     graph = [[] for _ in range(n)]
+    degree = [0 for _ in range(n)]
+    res = [-1 for _ in range(n)]
     for _ in range(n - 1):
         a, b = map(int, stdin.readline().split())
         graph[a - 1].append(b - 1)
         graph[b - 1].append(a - 1)
+        degree[a - 1] += 1
+        degree[b - 1] += 1
 
-    initial = []
-    res = [MAX_INT for _ in range(n)]
+    Q = deque()
+    for i in range(n):
+        if len(graph[i]) == 1:
+            res[i] = 1
+            Q.append(i)
 
-    level = 1
-    lines = n - 1
-    while lines > 0:
-        for i in range(n):
-
-            if len(graph[i]) == 1:
-                res[i] = level
-                graph[graph[i][0]].remove(i)
-                graph[i].clear()
-                lines -= 1
-        level += 1
-
+    # BFS
+    while Q:
+        node = Q.popleft()
+        for child in graph[node]:
+            degree[child] -= 1
+            if degree[child] == 1:
+                Q.append(child)
+                res[child] = res[node] + 1
 
     ans = 0
-    for i in res:
-        if i > k:
+    for foo in res:
+        if foo > k:
             ans += 1
     print(ans)
 
