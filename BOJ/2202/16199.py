@@ -1,0 +1,6 @@
+by, bm, bd = map(int, input().split())
+y, m, d = map(int, input().split())
+after_birthday = (bm,bd) <= (m,d)
+print(y-by-1+after_birthday)
+print(y-by+1)
+print(y-by)
