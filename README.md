@@ -27,3 +27,7 @@
 ### 2022/01
 
 01/16 : Codeforces 블루 달성
+
+### 2022/02
+
+02/16 : [백준 문제집(삼성 코테 기출)](https://www.acmicpc.net/workbook/view/1152) 완료
