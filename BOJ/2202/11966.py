@@ -1,0 +1,1 @@
+print(+(int(input()) in [2**i for i in range(31)]))
